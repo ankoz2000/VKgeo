@@ -25,11 +25,13 @@ def main():
         if event.type == VkEventType.MESSAGE_NEW and event.to_me and event.text:
             if not tests.get(f'{event.user_id}', False):
                 test = Test(event.user_id)
+                test.reset()
+                tests[f'{event.user_id}'] = test
             else:
                 test = tests.get(f'{event.user_id}')
             received_message = event.text
             addresser = event.user_id
-            bot = VkBot(event, test, users)
+            bot = VkBot(event, tests.get(f'{event.user_id}'), users)
             bot.new_message(received_message, vk_session)
             tests[f'{event.user_id}'] = test
             print('Текст:', received_message)
