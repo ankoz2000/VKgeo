@@ -40,7 +40,7 @@ def main():
     #    'photo': photo, 'server': server, 'hash': hash
     #})
     photo = photo_messages(vk_session)
-
+    print(users.USERS_HARD)
     for event in longpoll.listen():
         if event.type == VkEventType.MESSAGE_NEW and event.to_me and event.text:
             test = tests.get(f'{event.user_id}', False)
@@ -49,9 +49,6 @@ def main():
                 test.reset()
                 test.reset_hard()
                 tests[f'{event.user_id}'] = test
-                print("UID: ", test._USER_ID)
-                print("HQ: ", test._HARD_QUESTIONS)
-                print("Q: ", test._QUESTIONS)
             received_message = event.text
             addresser = event.user_id
             bot = VkBot(event, test, users, photo)

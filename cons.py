@@ -21,20 +21,18 @@ class Test:
 
     def __init__(self, user_id):
         self._USER_ID = user_id
-        self._QUESTIONS = qts.questions
-        self._HARD_QUESTIONS = qts.hard_questions
+        self._QUESTIONS = qts.questions.copy()
+        self._HARD_QUESTIONS = qts.hard_questions.copy()
         self._ANSWERS = answ.answers
         self._HARD_ANSWERS = answ.hard_answers
         self.POINTS = 0
         self.HARD_POINTS = 0
         self.points_buff = 0
         self.ERRORS = 0
-        self.HARD_ERRORS = 0
         self.current_question = ''
         self.current_answers = ''
         self.right_answer = ''
         self.right_hard_answer = answ.right_hard_answers
-        self.not_elected = self.start()
         self.counter = end
         self.counter2 = end2
         self.timer = time
@@ -42,14 +40,13 @@ class Test:
 
     def reset(self):
         self.POINTS = 0
-        self.HARD_POINTS = 0
         self.ERRORS = 0
-        self.HARD_ERRORS = 0
         self.current_time_result = 0
         self.current_question = ''
         self.current_answers = ''
         self.reset_questions()
         self.timer = time
+        return self
 
     def reset_hard(self):
         self.HARD_POINTS = 0
@@ -58,14 +55,13 @@ class Test:
         self.current_answers = ''
         self.reset_questions()
         self.timer = time
-        self._QUESTIONS = qts.parse_questions().questions
-        self._HARD_QUESTIONS = qts.parse_hard_questions().hard_questions
+        return self
 
     def reset_questions(self):
-        questions = self._QUESTIONS
-        for num in questions:
-            if questions[num]['is_elected']:
-                questions[num]['is_elected'] = False
+        self._QUESTIONS = qts.questions.copy()
+        self._HARD_QUESTIONS = qts.hard_questions.copy()
+        print("Q: ", self._QUESTIONS)
+        print("HQ: ", self._HARD_QUESTIONS)
         return
 
     def check_hard(self, answer):  # Проверка если ответ соответствует любому множественному ответу
@@ -101,6 +97,7 @@ class Test:
             return quest
         except KeyError as err:
             print(err)
+            qts.parse_questions()
             self._QUESTIONS = qts.questions
             return False
         #if not questions[n]['is_elected']:
@@ -119,6 +116,7 @@ class Test:
             return quest
         except KeyError as err:
             print(err)
+            qts.parse_hard_questions()
             self._HARD_QUESTIONS = qts.hard_questions
             return False
 
@@ -132,14 +130,14 @@ class Test:
     def check(self, received):
         difference = time.time() - float(self.timer)
         self.current_time_result += difference
-        if received.upper() == self.right_answer.upper() and difference <= 15:
+        if received.upper() == self.right_answer.upper() and difference <= 25:
             return True
         return False
 
     def check_time(self):
         difference = time.time() - float(self.timer)
         self.current_time_result += difference
-        if difference <= 15.01:
+        if difference <= 35.00:
             return True
         return False
 
@@ -168,12 +166,3 @@ class Test:
         self.current_answers = answer
         self.right_hard_answer = right
         return question
-
-    def start(self):
-        i = 1
-        lst = []
-        while i < end:
-            lst.append(i)
-            i += 1
-        return lst
-

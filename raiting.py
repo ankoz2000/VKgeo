@@ -4,7 +4,20 @@ from operator import itemgetter
 class Raiting:
     def __init__(self):
         self.USERS = {}
-        self.USERS_HARD = {}
+        self.USERS_HARD = {
+            '138437140': {
+                'data': {
+                    'name': 'Андрей', 'last_name': 'Козлов'
+                }, 'hard_points': 14, 'time': 41.279115438461304},
+            '221749260': {
+                'data': {
+                    'name': 'Арина', 'last_name': 'Белокрыльцева'
+                }, 'hard_points': 8, 'time': 139.67671012878418},
+            '236673429': {
+                'data': {
+                    'name': 'Сергей', 'last_name': 'Быстров'
+                }, 'hard_points': 8, 'time': 87.47103905677795}
+        }
 
     def add_user(self, user_id, user_name, user_last_name, points, errors, time):
         self.USERS[user_id] = {
@@ -58,9 +71,9 @@ class Raiting:
     def sort_users(self):
         users = self.USERS
         users_list = list(users.items())
-        #users_list.sort(key=lambda user: user[1]['points'], reverse=True)
+        # users_list.sort(key=lambda user: user[1]['points'], reverse=True)
         users_list.sort(key=lambda user: [user[1]['points'], -int(user[1]['time'])], reverse=True)
-        #users_list = sorted(users.items(), key=itemgetter('points', 'time'), reverse=True)
+        # users_list = sorted(users.items(), key=itemgetter('points', 'time'), reverse=True)
 
         diction = {}
         for user in users_list:

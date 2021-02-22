@@ -13,8 +13,7 @@ class Questions:
             i = 1
             for line in read_file:
                 self.questions[i] = {
-                    'question': line.strip('\n'),
-                    'is_elected': False
+                    'question': line.strip('\n')
                 }
                 i += 1
         return self
@@ -24,8 +23,7 @@ class Questions:
             i = 1
             for line in read_file:
                 self.hard_questions[i] = {
-                    'question': line.strip('\n'),
-                    'is_elected': False
+                    'question': line.strip('\n')
                 }
                 i += 1
         return self

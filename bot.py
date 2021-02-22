@@ -93,11 +93,11 @@ class VkBot:
                 message=f'{self._GREETINGS[i]}, {self._USERNAME}!',  Написать вступительное сообщение
                 board=keyboard)
             return'''
-        if message.upper() == 'GO':
+        '''if message.upper() == 'GO':
             i = random.randint(1, 3)
             keyboard = self.create_keyboard(position=True)
             keyboard.add_button(label='Начать', color=VkKeyboardColor.POSITIVE)
-            return
+            return'''
 
         if message.upper() == 'ПРИВЕТ' or message.upper() == 'ХАЙ' or message.upper() == 'HELLO' \
                 or message.upper() == 'НАЧАТЬ':
@@ -124,7 +124,7 @@ class VkBot:
             self.write_msg(
                 session=session,
                 message='После просмотра видео предлагаю тебе пройти небольшой тест.\nОбрати внимание, тест на время '
-                        '(для каждого ответа отводится 15 секунд). '
+                        '(для каждого ответа отводится 25 секунд). '
                         '\nЖми кнопку по готовности ;-)',
                 board=keyboard
                            )
@@ -241,7 +241,6 @@ class VkBot:
             self.test.ERRORS += 1
             question = self.test.get_question()
             check = self.check(question)
-            is_need_photo = self.isNeedPhoto(question)
             if check:
                 message = check['message']
                 points = check['points']
@@ -306,7 +305,7 @@ class VkBot:
             session=session,
             message='Проверь себя! Можешь ли ты считаться знатоком по географии Костромской области?'
                     '\nЧтобы ответить правильно на вопросы, нужно изучить 1 и 2 разделы книги '
-                    '"География Костромской области".\n\nПравила те же, на ответ - 15 секунд,'
+                    '"География Костромской области".\n\nНа ответ - 35 секунд,'
                     ' но вариантов ответов может быть несколько!\n Обязательно нажми кнопку "Далее" '
                     'после выбора варианта(-ов) ответа.\n\nЖми кнопку ниже, чтобы начать.',
             board=keyboard
