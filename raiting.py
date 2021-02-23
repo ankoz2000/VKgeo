@@ -16,7 +16,11 @@ class Raiting:
             '236673429': {
                 'data': {
                     'name': 'Сергей', 'last_name': 'Быстров'
-                }, 'hard_points': 8, 'time': 87.47103905677795}
+                }, 'hard_points': 8, 'time': 87.47103905677795},
+            '59428300': {
+                'data': {
+                    'name': 'Андрей', 'last_name': 'Жуйков'
+                }, 'hard_points': 6, 'time': 237.07635712623596}
         }
 
     def add_user(self, user_id, user_name, user_last_name, points, errors, time):

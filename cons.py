@@ -60,8 +60,6 @@ class Test:
     def reset_questions(self):
         self._QUESTIONS = qts.questions.copy()
         self._HARD_QUESTIONS = qts.hard_questions.copy()
-        print("Q: ", self._QUESTIONS)
-        print("HQ: ", self._HARD_QUESTIONS)
         return
 
     def check_hard(self, answer):  # Проверка если ответ соответствует любому множественному ответу
@@ -128,10 +126,11 @@ class Test:
         return False
 
     def check(self, received):
-        difference = time.time() - float(self.timer)
-        self.current_time_result += difference
-        if received.upper() == self.right_answer.upper() and difference <= 25:
-            return True
+        if type(self.timer) == float:
+            difference = time.time() - float(self.timer)
+            self.current_time_result += difference
+            if received.upper() == self.right_answer.upper() and difference <= 25:
+                return True
         return False
 
     def check_time(self):

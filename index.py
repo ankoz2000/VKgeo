@@ -33,14 +33,8 @@ def main():
 
     longpoll = VkLongPoll(vk_session)
 
-    #photo = obj['photo']
-    #server = obj['server']
-    #hash = obj['hash']
-    #up = vk_session.method('photos.saveMessagesPhoto', {
-    #    'photo': photo, 'server': server, 'hash': hash
-    #})
     photo = photo_messages(vk_session)
-    print(users.USERS_HARD)
+
     for event in longpoll.listen():
         if event.type == VkEventType.MESSAGE_NEW and event.to_me and event.text:
             test = tests.get(f'{event.user_id}', False)
@@ -54,9 +48,6 @@ def main():
             bot = VkBot(event, test, users, photo)
             bot.new_message(received_message, vk_session)
             tests[f'{event.user_id}'] = test
-            #print('Текст:', received_message)
-
-            #print(event.type)
 
 
 if __name__ == '__main__':

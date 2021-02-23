@@ -49,14 +49,25 @@ class VkBot:
         if check:
             message = check['message']
             points = check['hard_points']
-            session.method('messages.send', {
-                'user_id': self._USER_ID, 'message': 'Тест закончен. \n'
-                                                     f'Правильных ответов: {points}\n'
-                                                     f'Время: {round(self.test.current_time_result)} сек.\n\n'
-                                                     'Рейтинг:\n'
-                                                     f'{message}',
-                'random_id': get_random_id(), 'peer_id': self._USER_ID, 'keyboard': empty.get_empty_keyboard()
-            })
+            if points >= 11:
+                session.method('messages.send', {
+                    'user_id': self._USER_ID, 'message': 'Поздравляю, Вы можете считаться знатоком географии'
+                                                         ' Костромской области. \n'
+                                                         f'Правильных ответов: {points}\n'
+                                                         f'Время: {round(self.test.current_time_result)} сек.\n\n'
+                                                         'Рейтинг:\n'
+                                                         f'{message}',
+                    'random_id': get_random_id(), 'peer_id': self._USER_ID, 'keyboard': empty.get_empty_keyboard()
+                })
+            else:
+                session.method('messages.send', {
+                    'user_id': self._USER_ID, 'message': 'Тест закончен. \n'
+                                                         f'Правильных ответов: {points}\n'
+                                                         f'Время: {round(self.test.current_time_result)} сек.\n\n'
+                                                         'Рейтинг:\n'
+                                                         f'{message}',
+                    'random_id': get_random_id(), 'peer_id': self._USER_ID, 'keyboard': empty.get_empty_keyboard()
+                })
             wall = session.method('groups.edit', {'group_id': self.gid, 'description': message})
             print(wall)
             '''self.wall = session.method('wall.edit', {'owner_id': -self.gid, 'post_id': wall, 'message': message})
@@ -200,11 +211,41 @@ class VkBot:
                 session.method('messages.send', {
                     'user_id': self._USER_ID, 'message': 'Поздравляю, тест закончен. \n'
                                                          f'Правильных ответов: {points}'
-                                                         f'Время: {round(self.test.current_time_result)} сек.\n\n'
+                                                         f' Время: {round(self.test.current_time_result)} сек.\n\n'
                                                          'Рейтинг:\n'
                                                          f'{message}',
                     'random_id': get_random_id(), 'peer_id': self._USER_ID, 'keyboard': empty.get_empty_keyboard()
                 })
+                sex = session.method('users.get', {
+                    'user_ids': self._USER_ID, 'fields': 'sex'
+                })[0]['sex']
+                pnt = self.test.POINTS
+                point_frase = 'баллов'
+                if pnt < 5:
+                    point_frase = 'балла'
+                if pnt == 0:
+                    point_frase = 'баллов'
+                if pnt == 1:
+                    point_frase = 'балл'
+
+                if sex == 1:
+                    session.method('messages.send', {
+                        'user_id': 361572741, 'message': f'{self._USERNAME} {self._LAST_NAME} получила '
+                                                         f'{self.test.POINTS} {point_frase} за тест',
+                        'random_id': get_random_id(), 'peer_id': 361572741, 'keyboard': empty.get_empty_keyboard()
+                    })
+                if sex == 2:
+                    session.method('messages.send', {
+                        'user_id': 361572741, 'message': f'{self._USERNAME} {self._LAST_NAME} получил '
+                                                         f'{self.test.POINTS} {point_frase} за тест',
+                        'random_id': get_random_id(), 'peer_id': 361572741, 'keyboard': empty.get_empty_keyboard()
+                    })
+                else:
+                    session.method('messages.send', {
+                        'user_id': 361572741, 'message': f'{self._USERNAME} {self._LAST_NAME} - '
+                                                         f'{self.test.POINTS} {point_frase} за тест',
+                        'random_id': get_random_id(), 'peer_id': 361572741, 'keyboard': empty.get_empty_keyboard()
+                    })
                 self.test.timer = time
                 self.next_task(session)
                 return
@@ -247,11 +288,42 @@ class VkBot:
                 session.method('messages.send', {
                     'user_id': self._USER_ID, 'message': 'Тест закончен. \n'
                                                          f'Правильных ответов: {points}'
-                                                         f'Время: {round(self.test.current_time_result)} сек.\n\n'
+                                                         f' Время: {round(self.test.current_time_result)} сек.\n\n'
                                                          'Рейтинг:\n'
                                                          f'{message}',
                     'random_id': get_random_id(), 'peer_id': self._USER_ID, 'keyboard': empty.get_empty_keyboard()
                 })
+                sex = session.method('users.get', {
+                    'user_ids': self._USER_ID, 'fields': 'sex'
+                })[0]['sex']
+                pnt = self.test.POINTS
+                point_frase = 'баллов'
+                if pnt < 5:
+                    point_frase = 'балла'
+                if pnt == 0:
+                    point_frase = 'баллов'
+                if pnt == 1:
+                    point_frase = 'балл'
+
+                if sex == 1:
+                    session.method('messages.send', {
+                        'user_id': 361572741, 'message': f'{self._USERNAME} {self._LAST_NAME} получила '
+                                                         f'{self.test.POINTS} {point_frase} за тест',
+                        'random_id': get_random_id(), 'peer_id': 361572741, 'keyboard': empty.get_empty_keyboard()
+                    })
+                if sex == 2:
+                    session.method('messages.send', {
+                        'user_id': 361572741, 'message': f'{self._USERNAME} {self._LAST_NAME} получил '
+                                                         f'{self.test.POINTS} {point_frase} за тест',
+                        'random_id': get_random_id(), 'peer_id': 361572741, 'keyboard': empty.get_empty_keyboard()
+                    })
+                else:
+                    session.method('messages.send', {
+                        'user_id': 361572741, 'message': f'{self._USERNAME} {self._LAST_NAME} - '
+                                                         f'{self.test.POINTS} {point_frase} за тест',
+                        'random_id': get_random_id(), 'peer_id': 361572741, 'keyboard': empty.get_empty_keyboard()
+                    })
+
                 self.test.timer = time
                 self.next_task(session)
                 return
@@ -288,7 +360,7 @@ class VkBot:
             self.write_msg(
                 session=session,
                 message='Попробуй заново.',
-                board=keyboard.get_keyboard()
+                board=keyboard
                            )
             return
 
@@ -303,7 +375,10 @@ class VkBot:
         keyboard.add_button(label='Проверить', color=VkKeyboardColor.POSITIVE)
         self.write_msg(
             session=session,
-            message='Проверь себя! Можешь ли ты считаться знатоком по географии Костромской области?'
+            message='"Люблю и знаю, знаю и люблю. И тем сильней люблю, чем больше знаю" - '
+                    'пусть эти слова известного географа Ю. К. Ефремова станут девизом изучения '
+                    'географии родного края.\n\n'
+                    'Проверь себя! Можешь ли ты считаться знатоком по географии Костромской области?'
                     '\nЧтобы ответить правильно на вопросы, нужно изучить 1 и 2 разделы книги '
                     '"География Костромской области".\n\nНа ответ - 35 секунд,'
                     ' но вариантов ответов может быть несколько!\n Обязательно нажми кнопку "Далее" '
@@ -332,8 +407,12 @@ class VkBot:
                     point_frase = 'Правильных ответов'
                 if pnt == 1:
                     point_frase = 'Правильный ответ'
-                message += f'{n}. {name} {last_name}:\n{pnt} {point_frase} из {end2}.\n\n' \
-                           f'Время: {self_time} сек.\n\n\n'
+                if pnt >= 11:
+                    message += f'{n}. {name} {last_name} (Знаток):\n{pnt} {point_frase} из {end2}.\n\n' \
+                               f'Время: {self_time} сек.\n\n\n'
+                else:
+                    message += f'{n}. {name} {last_name}:\n{pnt} {point_frase} из {end2}.\n\n' \
+                               f'Время: {self_time} сек.\n\n\n'
                 n += 1
             return {'message': message, 'hard_points': h_points}
         return False
